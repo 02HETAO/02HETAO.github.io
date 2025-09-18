@@ -140,7 +140,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-09-18T04:10:18.367Z">
-<meta property="article:modified_time" content="2025-09-18T04:46:52.948Z">
+<meta property="article:modified_time" content="2025-09-18T05:07:33.469Z">
 <meta property="article:author" content="He Tao">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="鱼书">
@@ -631,8 +631,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-09-18 12:46:52</span>
-            <span class="mobile">2025-09-18 12:46:52</span>
+            <span class="desktop">2025-09-18 13:07:33</span>
+            <span class="mobile">2025-09-18 13:07:33</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -706,18 +706,18 @@
 <li><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250916112429786.png"
+                     data-src="/./%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250916112429786.png"
                       alt="image-20250916112429786"
                 >x：输入信号；y：输出信号；w：权重；O：神经元或节点；神经元激活：神经计算元输入信号分别乘固定权重（w1x1,w2x2)的总和，总和达到阈值输出1，用<strong>θ</strong>表示<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250916113416551.png"
+                     data-src="/./%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250916113416551.png"
                       alt="image-20250916113416551"
                 ></li>
 <li><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250917092959930.png"
+                     data-src="/./%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250917092959930.png"
                       alt="image-20250917092959930"
                 ></li>
 </ul>
@@ -734,7 +734,7 @@
 <li><p>将θ换成-b，称b为偏置，感知机行为表达式为：<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250916135749821.png"
+                     data-src="/./%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250916135749821.png"
                       alt="image-20250916135749821"
                 ></p>
 </li>
@@ -770,13 +770,13 @@ def OR(x1,x2):
     
 result=AND(1,0)
 print(result)
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">### 感知机局限性</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* ![image-20250916153551646](感知机/image-20250916153551646.png)</span><br><span class="line">* ![image-20250916153625377](感知机/image-20250916153625377.png)</span><br><span class="line">* 根据前面的图像可以分析出感知机无法实现异或门</span><br><span class="line"></span><br><span class="line">### 线性和非线性</span><br><span class="line"></span><br><span class="line">* 非线性空间：由曲线分割而成的空间</span><br><span class="line">* 线性空间：由直线分割而成的空间</span><br><span class="line">* ![image-20250916154331711](感知机/image-20250916154331711.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 多层感知机</span><br><span class="line"></span><br><span class="line">* 使用叠加层来实现不能表示的异或门</span><br><span class="line">* 单层感知机无法表示异或门即单层感知机无法分离非线性空间</span><br><span class="line"></span><br><span class="line">### 已有电路的组合</span><br><span class="line"></span><br><span class="line">* ![image-20250916160537102](感知机/image-20250916160537102.png)</span><br><span class="line"></span><br><span class="line">* ![image-20250916160604136](感知机/image-20250916160604136.png)</span><br><span class="line"></span><br><span class="line">* ```python</span><br><span class="line">  def XOR(x1,x2):</span><br><span class="line">      s1=NAND(x1,x2)</span><br><span class="line">      s2=OR(x1,x2)</span><br><span class="line">      y=AND(s1,s2)</span><br><span class="line">      return y</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">### 感知机局限性</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* ![image-20250916153551646](./感知机/image-20250916153551646.png)</span><br><span class="line">* ![image-20250916153625377](./感知机/image-20250916153625377.png)</span><br><span class="line">* 根据前面的图像可以分析出感知机无法实现异或门</span><br><span class="line"></span><br><span class="line">### 线性和非线性</span><br><span class="line"></span><br><span class="line">* 非线性空间：由曲线分割而成的空间</span><br><span class="line">* 线性空间：由直线分割而成的空间</span><br><span class="line">* ![image-20250916154331711](./感知机/image-20250916154331711.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 多层感知机</span><br><span class="line"></span><br><span class="line">* 使用叠加层来实现不能表示的异或门</span><br><span class="line">* 单层感知机无法表示异或门即单层感知机无法分离非线性空间</span><br><span class="line"></span><br><span class="line">### 已有电路的组合</span><br><span class="line"></span><br><span class="line">* ![image-20250916160537102](./感知机/image-20250916160537102.png)</span><br><span class="line"></span><br><span class="line">* ![image-20250916160604136](./感知机/image-20250916160604136.png)</span><br><span class="line"></span><br><span class="line">* ```python</span><br><span class="line">  def XOR(x1,x2):</span><br><span class="line">      s1=NAND(x1,x2)</span><br><span class="line">      s2=OR(x1,x2)</span><br><span class="line">      y=AND(s1,s2)</span><br><span class="line">      return y</span><br></pre></td></tr></table></figure></div>
 </code></pre>
 </li>
 <li><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250916161849946.png"
+                     data-src="/./%E6%84%9F%E7%9F%A5%E6%9C%BA/image-20250916161849946.png"
                       alt="image-20250916161849946"
                 ></p>
 </li>
@@ -795,7 +795,7 @@ print(result)
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-09-18 12:46:52
+                    :</strong> 2025-09-18 13:07:33
             </li>
         
         <li>
