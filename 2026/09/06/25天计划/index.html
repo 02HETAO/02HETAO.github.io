@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Study">
+    
+    <meta name="author" content="何涛">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://02hetao.github.io/2026/09/06/25天计划/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBlog">
+<meta property="og:url" content="https://02hetao.github.io/2026/09/06/25%E5%A4%A9%E8%AE%A1%E5%88%92/index.html">
+<meta property="og:site_name" content="MyBlog">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://02hetao.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-09-06T04:36:01.391Z">
+<meta property="article:modified_time" content="2026-09-06T04:36:08.357Z">
+<meta property="article:author" content="He Tao">
+<meta property="article:tag" content="Study">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://02hetao.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/gerentouxiang.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/gerentouxiang.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/gerentouxiang.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            MyBlog - 一分耕耘一分收获
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"02hetao.github.io","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":["Lv1","Lv2","Lv3"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/白天.jpg","dark":"/images/晚上.png"},"title":"No pain,no gain","subtitle":{"text":["纵然世间黑暗 仍有一点星光","抱怨身处黑暗 不如提灯前行","人生虽曲折 记得活出精彩","当你想要放弃的时候想想当初为什么坚持到这里"],"hitokoto":{"enable":false,"show_author":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":"/images/微信.jpg"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Status":{"path":"https://status.ohevan.com/","icon":"fa-regular fa-chart-bar"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/02HETAO/02HETAO.github.io.git","Blog":"https://02HETAO.github.io","Photo":"/masonry/"}},"Links":{"icon":"fa-solid fa-link","submenus":{"Friends":"/links","bilibili":"https://www.bilibili.com"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":3,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"常回顾你的博客","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2025/9/18 08:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/gerentouxiang.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                MyBlog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   target="_blank" rel="noopener" href="https://status.ohevan.com/"
+                                        >
+                                    <i class="fa-regular fa-chart-bar fa-fw"></i>
+                                    状态
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/02HETAO/02HETAO.github.io.git">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://02HETAO.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    PHOTO
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    链接
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/links">
+                                                    友情链接
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://www.bilibili.com">
+                                                    BILIBILI
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           target="_blank" rel="noopener" href="https://status.ohevan.com/"
+                        >
+                            <span>
+                                状态
+                            </span>
+                            
+                                <i class="fa-regular fa-chart-bar fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/02HETAO/02HETAO.github.io.git">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://02HETAO.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">PHOTO</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                链接
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/links">友情链接</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://www.bilibili.com">BILIBILI</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags/"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3"></h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/gerentouxiang.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">何涛</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-09-06 12:36:01</span>
+        <span class="mobile">2026-09-06 12:36:01</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-09-06 12:36:08</span>
+            <span class="mobile">2026-09-06 12:36:08</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>可以。基于你这次上传的 <code>4.17(3).rar</code>，我重新按<strong>真实目录结构</strong>给你定一版最终 25 天路线。</p>
+<p>路线固定为：</p>
+<blockquote>
+<p><strong>Project1：只以 <code>demo_multhread_decode_infer_mulmodel</code> 为主线，<code>demo_multhread_decode_infer</code> 只在某段源码实在看不懂时做简化对照。</strong><br><strong>Project2：完整学习。</strong><br><strong>最终目标：Linux 基础重新串起来 + 两个项目能讲清楚 + 能自己修改 + 能写进简历 + 能应对面试追问。</strong></p>
+</blockquote>
+<p>你不用再反复改学习路线了，后面可以直接按照这 25 天执行。</p>
+<hr>
+<h1 id="一、25-天最终总体安排"><a href="#一、25-天最终总体安排" class="headerlink" title="一、25 天最终总体安排"></a>一、25 天最终总体安排</h1><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一阶段</td>
+<td>Day 1～6</td>
+<td>Linux&#x2F;C++基础回炉，同时进入 Project1</td>
+</tr>
+<tr>
+<td>第二阶段</td>
+<td>Day 7～15</td>
+<td>完整吃透 Project1</td>
+</tr>
+<tr>
+<td>第三阶段</td>
+<td>Day 16～22</td>
+<td>完整吃透 Project2</td>
+</tr>
+<tr>
+<td>第四阶段</td>
+<td>Day 23～24</td>
+<td>调试、性能、自主改造、简历整理</td>
+</tr>
+<tr>
+<td>第五阶段</td>
+<td>Day 25</td>
+<td>项目答辩 + Linux 面试冲刺</td>
+</tr>
+</tbody></table>
+<p>每天建议 <strong>5～7 小时</strong>。</p>
+<p>每天都遵守一个固定循环：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">基础知识复习</span><br><span class="line">      ↓</span><br><span class="line">自己写最小 Demo</span><br><span class="line">      ↓</span><br><span class="line">去真实项目里找对应代码</span><br><span class="line">      ↓</span><br><span class="line">GDB/打印日志实际跟代码</span><br><span class="line">      ↓</span><br><span class="line">自己总结</span><br><span class="line">      ↓</span><br><span class="line">闭卷回答面试题</span><br></pre></td></tr></table></figure></div>
+
+<p>不要变成：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">看视频</span><br><span class="line">↓</span><br><span class="line">看代码</span><br><span class="line">↓</span><br><span class="line">感觉懂了</span><br><span class="line">↓</span><br><span class="line">第二天忘了</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h1 id="二、两个项目的定位先固定下来"><a href="#二、两个项目的定位先固定下来" class="headerlink" title="二、两个项目的定位先固定下来"></a>二、两个项目的定位先固定下来</h1><h2 id="Project1-主学习目录"><a href="#Project1-主学习目录" class="headerlink" title="Project1 主学习目录"></a>Project1 主学习目录</h2><p>以后 Project1 默认就是：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/elf1/Linux_Stu/项目/project1/demo_multhread_decode_infer_mulmodel</span><br></pre></td></tr></table></figure></div>
+
+<p>真实核心文件包括：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">main.cpp</span><br><span class="line"></span><br><span class="line">include/</span><br><span class="line">├── ThreadPool.hpp</span><br><span class="line">├── rknnPool.hpp</span><br><span class="line">├── stream_loader.h</span><br><span class="line">├── mpp_decoder.h</span><br><span class="line">├── mpp_encoder.h</span><br><span class="line">├── m_buffer.hpp</span><br><span class="line">├── dma_alloc.hpp</span><br><span class="line">├── rga_func.h</span><br><span class="line">├── postprocess.h</span><br><span class="line">├── detection_fusion_manager.h</span><br><span class="line">└── streaming_manager.h</span><br><span class="line"></span><br><span class="line">lib/</span><br><span class="line">├── stream_loader.cpp</span><br><span class="line">├── mpp_decoder.cpp</span><br><span class="line">├── mpp_encoder.cpp</span><br><span class="line">├── postprocess.cpp</span><br><span class="line">├── detection_fusion_manager.cpp</span><br><span class="line">└── streaming_manager.cpp</span><br></pre></td></tr></table></figure></div>
+
+<p>它的核心学习链：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">视频输入</span><br><span class="line">   ↓</span><br><span class="line">Stream Loader</span><br><span class="line">   ↓</span><br><span class="line">MPP Decoder</span><br><span class="line">   ↓</span><br><span class="line">Video Frame</span><br><span class="line">   ↓</span><br><span class="line">DMA / RGA</span><br><span class="line">   ↓</span><br><span class="line">RKNN Pool</span><br><span class="line">   ↓</span><br><span class="line">多模型推理</span><br><span class="line">   ↓</span><br><span class="line">PostProcess</span><br><span class="line">   ↓</span><br><span class="line">Detection Fusion</span><br><span class="line">   ↓</span><br><span class="line">MPP Encoder</span><br><span class="line">   ↓</span><br><span class="line">Streaming</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="Project2"><a href="#Project2" class="headerlink" title="Project2"></a>Project2</h2><p>真实核心文件：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">main.cc</span><br><span class="line"></span><br><span class="line">config.cc</span><br><span class="line">config.h</span><br><span class="line"></span><br><span class="line">decode.cc</span><br><span class="line">decode.h</span><br><span class="line"></span><br><span class="line">frame_queue.h</span><br><span class="line"></span><br><span class="line">push.cc</span><br><span class="line">push.h</span><br><span class="line"></span><br><span class="line">ps_rtp.cc</span><br><span class="line">ps_rtp.h</span><br><span class="line"></span><br><span class="line">gb28181.cc</span><br><span class="line">gb28181.h</span><br><span class="line"></span><br><span class="line">xml_utils.cc</span><br><span class="line">xml_utils.h</span><br><span class="line"></span><br><span class="line">MPP/</span><br><span class="line">scripts/</span><br></pre></td></tr></table></figure></div>
+
+<p>Project2 可以先理解成：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">控制面：</span><br><span class="line"></span><br><span class="line">GB28181</span><br><span class="line">   ↓</span><br><span class="line">SIP</span><br><span class="line">   ↓</span><br><span class="line">eXosip2 / osip2</span><br><span class="line">   ↓</span><br><span class="line">注册 / 心跳 / INVITE / BYE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">媒体面：</span><br><span class="line"></span><br><span class="line">视频</span><br><span class="line"> ↓</span><br><span class="line">Decode</span><br><span class="line"> ↓</span><br><span class="line">Frame Queue</span><br><span class="line"> ↓</span><br><span class="line">Push</span><br><span class="line"> ↓</span><br><span class="line">PS</span><br><span class="line"> ↓</span><br><span class="line">RTP</span><br><span class="line"> ↓</span><br><span class="line">UDP</span><br><span class="line"> ↓</span><br><span class="line">平台</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h1 id="三、Day-1：两个项目全景-Linux-项目阅读方法"><a href="#三、Day-1：两个项目全景-Linux-项目阅读方法" class="headerlink" title="三、Day 1：两个项目全景 + Linux 项目阅读方法"></a>三、Day 1：两个项目全景 + Linux 项目阅读方法</h1><h2 id="基础复习"><a href="#基础复习" class="headerlink" title="基础复习"></a>基础复习</h2><p>今天快速复习：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span></span><br><span class="line"><span class="built_in">ls</span></span><br><span class="line"><span class="built_in">ls</span> -l</span><br><span class="line">tree</span><br><span class="line">find</span><br><span class="line">grep</span><br><span class="line">file</span><br><span class="line">ldd</span><br><span class="line"><span class="built_in">which</span></span><br><span class="line">ps</span><br><span class="line">top</span><br><span class="line"><span class="built_in">kill</span></span><br><span class="line"><span class="built_in">chmod</span></span><br></pre></td></tr></table></figure></div>
+
+<p>重点练：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">find . -name <span class="string">&quot;*.cpp&quot;</span></span><br><span class="line">find . -name <span class="string">&quot;*.cc&quot;</span></span><br><span class="line">find . -name <span class="string">&quot;*.h&quot;</span></span><br><span class="line">find . -name <span class="string">&quot;CMakeLists.txt&quot;</span></span><br><span class="line"></span><br><span class="line">grep -R <span class="string">&quot;main(&quot;</span> .</span><br><span class="line">grep -R <span class="string">&quot;pthread&quot;</span> .</span><br><span class="line">grep -R <span class="string">&quot;rknn_init&quot;</span> .</span><br><span class="line">grep -R <span class="string">&quot;sendto&quot;</span> .</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="Project1"><a href="#Project1" class="headerlink" title="Project1"></a>Project1</h2><p>只浏览：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">main.cpp</span><br><span class="line">include/</span><br><span class="line">lib/</span><br><span class="line">CMakeLists.txt</span><br></pre></td></tr></table></figure></div>
+
+<p>今天不要追具体函数。</p>
+<p>回答：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">程序入口在哪里？</span><br><span class="line">模型在哪里？</span><br><span class="line">视频在哪里？</span><br><span class="line">线程在哪里？</span><br><span class="line">推理在哪里？</span><br><span class="line">输出在哪里？</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="Project2-1"><a href="#Project2-1" class="headerlink" title="Project2"></a>Project2</h2><p>同样只看目录和 <code>main.cc</code>。</p>
+<hr>
+<h2 id="今日产出"><a href="#今日产出" class="headerlink" title="今日产出"></a>今日产出</h2><p>必须自己画：</p>
+<h3 id="Project1-第一版架构"><a href="#Project1-第一版架构" class="headerlink" title="Project1 第一版架构"></a>Project1 第一版架构</h3><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Video</span><br><span class="line"> ↓</span><br><span class="line">Decode</span><br><span class="line"> ↓</span><br><span class="line">RGA</span><br><span class="line"> ↓</span><br><span class="line">RKNN</span><br><span class="line"> ↓</span><br><span class="line">Detection</span><br><span class="line"> ↓</span><br><span class="line">Encode</span><br><span class="line"> ↓</span><br><span class="line">Streaming</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Project2-第一版架构"><a href="#Project2-第一版架构" class="headerlink" title="Project2 第一版架构"></a>Project2 第一版架构</h3><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SIP/GB28181 控制</span><br><span class="line"></span><br><span class="line">       +</span><br><span class="line"></span><br><span class="line">Video → Queue → PS → RTP → UDP</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="验收"><a href="#验收" class="headerlink" title="验收"></a>验收</h3><p>分别用 <strong>2 分钟</strong>介绍两个项目。</p>
+<hr>
+<h1 id="Day-2：GCC、编译、链接、CMake"><a href="#Day-2：GCC、编译、链接、CMake" class="headerlink" title="Day 2：GCC、编译、链接、CMake"></a>Day 2：GCC、编译、链接、CMake</h1><p>这是你以后看项目必须掌握的。</p>
+<h2 id="复习"><a href="#复习" class="headerlink" title="复习"></a>复习</h2><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.cpp</span><br><span class="line"> ↓</span><br><span class="line">预处理</span><br><span class="line"> ↓</span><br><span class="line">.i</span><br><span class="line"> ↓</span><br><span class="line">编译</span><br><span class="line"> ↓</span><br><span class="line">.s</span><br><span class="line"> ↓</span><br><span class="line">汇编</span><br><span class="line"> ↓</span><br><span class="line">.o</span><br><span class="line"> ↓</span><br><span class="line">链接</span><br><span class="line"> ↓</span><br><span class="line">ELF</span><br></pre></td></tr></table></figure></div>
+
+<p>自己执行：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">g++ -E main.cpp</span><br><span class="line">g++ -S main.cpp</span><br><span class="line">g++ -c main.cpp</span><br><span class="line">g++ main.o -o app</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="必须搞懂"><a href="#必须搞懂" class="headerlink" title="必须搞懂"></a>必须搞懂</h2><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.h</span><br><span class="line">.cpp</span><br><span class="line">.o</span><br><span class="line">.a</span><br><span class="line">.so</span><br><span class="line">ELF</span><br></pre></td></tr></table></figure></div>
+
+<p>区别。</p>
+<p>命令：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">file</span><br><span class="line">ldd</span><br><span class="line">nm</span><br><span class="line">readelf</span><br><span class="line">objdump</span><br><span class="line">ar</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="CMake"><a href="#CMake" class="headerlink" title="CMake"></a>CMake</h2><p>重点复习：</p>
+<div class="code-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>()</span><br><span class="line"><span class="keyword">project</span>()</span><br><span class="line"><span class="keyword">set</span>()</span><br><span class="line"><span class="keyword">include_directories</span>()</span><br><span class="line"><span class="keyword">target_include_directories</span>()</span><br><span class="line"><span class="keyword">link_directories</span>()</span><br><span class="line"><span class="keyword">add_executable</span>()</span><br><span class="line"><span class="keyword">add_library</span>()</span><br><span class="line"><span class="keyword">target_link_libraries</span>()</span><br><span class="line"><span class="keyword">find_package</span>()</span><br><span class="line"><span class="keyword">add_subdirectory</span>()</span><br></pre></td></tr></table></figure></div>
+
+<p>直接拿：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Project1/CMakeLists.txt</span><br><span class="line">Project2/CMakeLists.txt</span><br></pre></td></tr></table></figure></div>
+
+<p>分析。</p>
+<h3 id="今日动手"><a href="#今日动手" class="headerlink" title="今日动手"></a>今日动手</h3><p>自己创建：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cmake_demo/</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── main.cpp</span><br><span class="line">├── include/</span><br><span class="line">└── src/</span><br></pre></td></tr></table></figure></div>
+
+<p>并制作一个：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libtest.so</span><br></pre></td></tr></table></figure></div>
+
+<p>让主程序链接它。</p>
+<h3 id="验收-1"><a href="#验收-1" class="headerlink" title="验收"></a>验收</h3><p>闭卷回答：</p>
+<blockquote>
+<p>编译和链接区别是什么？</p>
+</blockquote>
+<blockquote>
+<p>静态库和动态库区别是什么？</p>
+</blockquote>
+<blockquote>
+<p><code>ldd</code> 是干什么的？</p>
+</blockquote>
+<blockquote>
+<p><code>target_link_libraries()</code> 干什么？</p>
+</blockquote>
+<hr>
+<h1 id="Day-3：C-核心基础回炉"><a href="#Day-3：C-核心基础回炉" class="headerlink" title="Day 3：C++ 核心基础回炉"></a>Day 3：C++ 核心基础回炉</h1><p>重点复习你后面读项目最常遇到的东西：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">指针</span><br><span class="line">引用</span><br><span class="line">const</span><br><span class="line">类</span><br><span class="line">构造函数</span><br><span class="line">析构函数</span><br><span class="line">继承</span><br><span class="line">虚函数</span><br></pre></td></tr></table></figure></div>
+
+<p>再复习：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new/delete</span><br><span class="line">malloc/free</span><br></pre></td></tr></table></figure></div>
+
+<p>STL：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector</span><br><span class="line">queue</span><br><span class="line">map</span><br><span class="line">unordered_map</span><br><span class="line">string</span><br></pre></td></tr></table></figure></div>
+
+<p>以及：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::thread</span><br><span class="line">std::ref</span><br><span class="line">std::move</span><br></pre></td></tr></table></figure></div>
+
+<p>这三个对 Project1 非常重要。</p>
+<hr>
+<h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unique_ptr</span><br><span class="line">shared_ptr</span><br><span class="line">weak_ptr</span><br></pre></td></tr></table></figure></div>
+
+<p>重点：</p>
+<blockquote>
+<p>RAII 是什么？</p>
+</blockquote>
+<hr>
+<h2 id="Project1-对应"><a href="#Project1-对应" class="headerlink" title="Project1 对应"></a>Project1 对应</h2><p>浏览：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">main.cpp</span><br><span class="line">m_buffer.hpp</span><br><span class="line">dma_alloc.hpp</span><br><span class="line">rknnPool.hpp</span><br></pre></td></tr></table></figure></div>
+
+<p>今天不要研究算法。</p>
+<p>专门看：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对象在哪里创建？</span><br><span class="line">对象传的是值还是引用？</span><br><span class="line">哪里使用指针？</span><br><span class="line">哪里使用 std::ref？</span><br><span class="line">哪里使用 std::move？</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="今日产出-1"><a href="#今日产出-1" class="headerlink" title="今日产出"></a>今日产出</h3><p>写一份：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Project1 中遇到的 C++ 语法清单</span><br></pre></td></tr></table></figure></div>
+
+<p>以后遇到不会的继续往里面补。</p>
+<hr>
+<h1 id="Day-4：Linux-文件-IO-Buffer-mmap"><a href="#Day-4：Linux-文件-IO-Buffer-mmap" class="headerlink" title="Day 4：Linux 文件 IO + Buffer + mmap"></a>Day 4：Linux 文件 IO + Buffer + mmap</h1><p>学习：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">open()</span><br><span class="line">read()</span><br><span class="line">write()</span><br><span class="line">close()</span><br><span class="line">lseek()</span><br><span class="line">stat()</span><br></pre></td></tr></table></figure></div>
+
+<p>重点：</p>
+<blockquote>
+<p>文件描述符 fd 是什么？</p>
+</blockquote>
+<p>搞懂：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open/read/write</span><br></pre></td></tr></table></figure></div>
+
+<p>与：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fopen/fread/fwrite</span><br></pre></td></tr></table></figure></div>
+
+<p>区别。</p>
+<p>然后：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mmap()</span><br><span class="line">munmap()</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="自己写"><a href="#自己写" class="headerlink" title="自己写"></a>自己写</h2><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./copy input.mp4 output.mp4</span><br></pre></td></tr></table></figure></div>
+
+<p>版本一：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read + write</span><br></pre></td></tr></table></figure></div>
+
+<p>版本二：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mmap</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="对项目建立认识"><a href="#对项目建立认识" class="headerlink" title="对项目建立认识"></a>对项目建立认识</h2><p>后面所有音视频程序实际上都是：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">数据</span><br><span class="line"> ↓</span><br><span class="line">Buffer</span><br><span class="line"> ↓</span><br><span class="line">处理</span><br><span class="line"> ↓</span><br><span class="line">Buffer</span><br><span class="line"> ↓</span><br><span class="line">处理</span><br></pre></td></tr></table></figure></div>
+
+<p>Project1 后面会出现：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FFmpeg Buffer</span><br><span class="line">MPP Buffer</span><br><span class="line">DMA Buffer</span><br><span class="line">RGA Buffer</span><br><span class="line">RKNN Input</span><br><span class="line">RKNN Output</span><br></pre></td></tr></table></figure></div>
+
+<p>今天必须建立 Buffer 意识。</p>
+<hr>
+<h1 id="Day-5：进程、信号、程序生命周期"><a href="#Day-5：进程、信号、程序生命周期" class="headerlink" title="Day 5：进程、信号、程序生命周期"></a>Day 5：进程、信号、程序生命周期</h1><p>复习：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fork()</span><br><span class="line">exec()</span><br><span class="line">wait()</span><br><span class="line">waitpid()</span><br></pre></td></tr></table></figure></div>
+
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">父进程</span><br><span class="line">子进程</span><br><span class="line">僵尸进程</span><br><span class="line">孤儿进程</span><br></pre></td></tr></table></figure></div>
+
+<p>IPC 快速复习：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pipe</span><br><span class="line">FIFO</span><br><span class="line">共享内存</span><br><span class="line">消息队列</span><br><span class="line">Socket</span><br></pre></td></tr></table></figure></div>
+
+<p>信号：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">signal()</span><br><span class="line">sigaction()</span><br></pre></td></tr></table></figure></div>
+
+<p>重点：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SIGINT</span><br><span class="line">SIGTERM</span><br><span class="line">SIGPIPE</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="自己写-1"><a href="#自己写-1" class="headerlink" title="自己写"></a>自己写</h2><p>实现：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+C</span><br><span class="line"> ↓</span><br><span class="line">捕获 SIGINT</span><br><span class="line"> ↓</span><br><span class="line">设置退出标志</span><br><span class="line"> ↓</span><br><span class="line">释放资源</span><br><span class="line"> ↓</span><br><span class="line">程序退出</span><br></pre></td></tr></table></figure></div>
+
+<p>Day23 会把这个能力真正加进项目。</p>
+<hr>
+<h1 id="Day-6：线程、锁、条件变量、生产者消费者"><a href="#Day-6：线程、锁、条件变量、生产者消费者" class="headerlink" title="Day 6：线程、锁、条件变量、生产者消费者"></a>Day 6：线程、锁、条件变量、生产者消费者</h1><p>今天非常重要。</p>
+<p>复习：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pthread_create()</span><br><span class="line">pthread_join()</span><br><span class="line">pthread_detach()</span><br></pre></td></tr></table></figure></div>
+
+<p>以及 C++：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::thread</span><br><span class="line">std::mutex</span><br><span class="line">std::lock_guard</span><br><span class="line">std::unique_lock</span><br><span class="line">std::condition_variable</span><br></pre></td></tr></table></figure></div>
+
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">临界区</span><br><span class="line">竞态条件</span><br><span class="line">互斥锁</span><br><span class="line">条件变量</span><br><span class="line">死锁</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="自己写两个-Demo"><a href="#自己写两个-Demo" class="headerlink" title="自己写两个 Demo"></a>自己写两个 Demo</h2><h3 id="Demo-1"><a href="#Demo-1" class="headerlink" title="Demo 1"></a>Demo 1</h3><p>4 个线程：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">counter++</span><br></pre></td></tr></table></figure></div>
+
+<p>先不加锁，再加锁。</p>
+<h3 id="Demo-2"><a href="#Demo-2" class="headerlink" title="Demo 2"></a>Demo 2</h3><p>完整生产者消费者：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Producer</span><br><span class="line">   ↓</span><br><span class="line">Queue</span><br><span class="line">   ↓</span><br><span class="line">Consumer</span><br></pre></td></tr></table></figure></div>
+
+<p>使用：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">queue</span><br><span class="line">mutex</span><br><span class="line">condition_variable</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="验收-2"><a href="#验收-2" class="headerlink" title="验收"></a>验收</h3><p>必须回答：</p>
+<blockquote>
+<p>mutex 和 condition_variable 为什么经常一起使用？</p>
+</blockquote>
+<blockquote>
+<p>什么是竞态条件？</p>
+</blockquote>
+<blockquote>
+<p>死锁的四个条件是什么？</p>
+</blockquote>
+<hr>
+<h1 id="Day-7：Project1-main-cpp-ThreadPool"><a href="#Day-7：Project1-main-cpp-ThreadPool" class="headerlink" title="Day 7：Project1 main.cpp + ThreadPool"></a>Day 7：Project1 <code>main.cpp</code> + ThreadPool</h1><p>现在正式进入 Project1 深入阶段。</p>
+<p>今天主文件：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">main.cpp</span><br><span class="line">ThreadPool.hpp</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="main-cpp"><a href="#main-cpp" class="headerlink" title="main.cpp"></a><code>main.cpp</code></h2><p>不要逐行背。</p>
+<p>把它分成几个大模块：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">① 模型路径</span><br><span class="line">② 视频流管理</span><br><span class="line">③ 初始化</span><br><span class="line">④ RKNN Pool</span><br><span class="line">⑤ 线程创建</span><br><span class="line">⑥ 图像组合/处理</span><br><span class="line">⑦ 推理</span><br><span class="line">⑧ Streaming</span><br><span class="line">⑨ 资源清理</span><br></pre></td></tr></table></figure></div>
+
+<p>搞清：</p>
+<blockquote>
+<p><code>main()</code> 是怎么组织整个系统的。</p>
+</blockquote>
+<hr>
+<h2 id="ThreadPool"><a href="#ThreadPool" class="headerlink" title="ThreadPool"></a>ThreadPool</h2><p>结合 Day6：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Task</span><br><span class="line"> ↓</span><br><span class="line">Task Queue</span><br><span class="line"> ↓</span><br><span class="line">Worker Thread</span><br></pre></td></tr></table></figure></div>
+
+<p>重点理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">任务如何提交？</span><br><span class="line">worker为什么循环？</span><br><span class="line">没有任务怎么办？</span><br><span class="line">程序结束时怎么退出？</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="自己写-2"><a href="#自己写-2" class="headerlink" title="自己写"></a>自己写</h3><p>脱离项目自己实现一个：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ThreadPool <span class="title">pool</span><span class="params">(<span class="number">4</span>)</span></span>;</span><br></pre></td></tr></table></figure></div>
+
+<p>提交 100 个任务。</p>
+<hr>
+<h1 id="Day-8：音视频基础-Stream-Loader"><a href="#Day-8：音视频基础-Stream-Loader" class="headerlink" title="Day 8：音视频基础 + Stream Loader"></a>Day 8：音视频基础 + Stream Loader</h1><p>先补基础：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MP4 ≠ H264</span><br></pre></td></tr></table></figure></div>
+
+<p>必须区分：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">容器格式</span><br><span class="line">编码格式</span><br></pre></td></tr></table></figure></div>
+
+<p>学习：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Demux</span><br><span class="line">Decode</span><br><span class="line">Frame</span><br><span class="line">Encode</span><br><span class="line">Mux</span><br></pre></td></tr></table></figure></div>
+
+<p>认识：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">H264</span><br><span class="line">H265</span><br><span class="line">RGB</span><br><span class="line">BGR</span><br><span class="line">YUV420P</span><br><span class="line">NV12</span><br></pre></td></tr></table></figure></div>
+
+<p>以及：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FPS</span><br><span class="line">PTS</span><br><span class="line">DTS</span><br><span class="line">GOP</span><br><span class="line">I/P/B帧</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="Project1-1"><a href="#Project1-1" class="headerlink" title="Project1"></a>Project1</h2><p>研究：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stream_loader.h</span><br><span class="line">stream_loader.cpp</span><br></pre></td></tr></table></figure></div>
+
+<p>找出：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">视频在哪里打开？</span><br><span class="line">FFmpeg在哪里初始化？</span><br><span class="line">packet怎么读取？</span><br><span class="line">读取线程在哪里？</span><br><span class="line">stopFlag怎么用？</span><br><span class="line">buffer.img是什么？</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="当天必须画"><a href="#当天必须画" class="headerlink" title="当天必须画"></a>当天必须画</h3><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MP4</span><br><span class="line"> ↓</span><br><span class="line">FFmpeg Demux</span><br><span class="line"> ↓</span><br><span class="line">Packet</span><br><span class="line"> ↓</span><br><span class="line">MPP Decoder</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h1 id="Day-9：MPP-Decoder"><a href="#Day-9：MPP-Decoder" class="headerlink" title="Day 9：MPP Decoder"></a>Day 9：MPP Decoder</h1><p>今天只研究：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mpp_decoder.h</span><br><span class="line">mpp_decoder.cpp</span><br></pre></td></tr></table></figure></div>
+
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">压缩码流</span><br><span class="line"> ↓</span><br><span class="line">MPP Decoder</span><br><span class="line"> ↓</span><br><span class="line">YUV/NV12 Frame</span><br></pre></td></tr></table></figure></div>
+
+<p>重点找：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始化</span><br><span class="line">输入 Packet</span><br><span class="line">送入 MPP</span><br><span class="line">获取 Frame</span><br><span class="line">Buffer</span><br><span class="line">错误处理</span><br><span class="line">资源释放</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="对应-Linux-基础"><a href="#对应-Linux-基础" class="headerlink" title="对应 Linux 基础"></a>对应 Linux 基础</h2><p>复习：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">指针</span><br><span class="line">回调</span><br><span class="line">Buffer</span><br><span class="line">资源生命周期</span><br><span class="line">错误码</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h3><blockquote>
+<p>软件解码与硬件解码区别是什么？</p>
+</blockquote>
+<blockquote>
+<p>为什么 RK3588 视频应用使用 MPP？</p>
+</blockquote>
+<blockquote>
+<p>MPP、CPU、VPU 大概是什么关系？</p>
+</blockquote>
+<hr>
+<h1 id="Day-10：RGA-DMA-图像-Buffer"><a href="#Day-10：RGA-DMA-图像-Buffer" class="headerlink" title="Day 10：RGA + DMA + 图像 Buffer"></a>Day 10：RGA + DMA + 图像 Buffer</h1><p>重点：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rga_func.h</span><br><span class="line">dma_alloc.hpp</span><br><span class="line">m_buffer.hpp</span><br></pre></td></tr></table></figure></div>
+
+<p>学习 RGA：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resize</span><br><span class="line">crop</span><br><span class="line">rotate</span><br><span class="line">颜色转换</span><br></pre></td></tr></table></figure></div>
+
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MPP Frame</span><br><span class="line">   ↓</span><br><span class="line">DMA Buffer</span><br><span class="line">   ↓</span><br><span class="line">RGA</span><br><span class="line">   ↓</span><br><span class="line">适合模型输入的图像</span><br></pre></td></tr></table></figure></div>
+
+<p>例如：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1920×1080 NV12</span><br><span class="line">       ↓</span><br><span class="line">      RGA</span><br><span class="line">       ↓</span><br><span class="line">640×640 RGB</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="今天重点搞懂"><a href="#今天重点搞懂" class="headerlink" title="今天重点搞懂"></a>今天重点搞懂</h2><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">虚拟地址</span><br><span class="line">物理地址</span><br><span class="line">DMA</span><br><span class="line">memcpy</span><br><span class="line">Cache</span><br><span class="line">零拷贝“思想”</span><br></pre></td></tr></table></figure></div>
+
+<p>注意：</p>
+<blockquote>
+<p>先理解思想，不要没验证代码就说项目实现了完整零拷贝。</p>
+</blockquote>
+<hr>
+<h1 id="Day-11：RKNN-与-NPU"><a href="#Day-11：RKNN-与-NPU" class="headerlink" title="Day 11：RKNN 与 NPU"></a>Day 11：RKNN 与 NPU</h1><p>重点：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rknn_api.h</span><br><span class="line">rknnPool.hpp</span><br></pre></td></tr></table></figure></div>
+
+<p>学习 RKNN 基本生命周期：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">模型加载</span><br><span class="line"> ↓</span><br><span class="line">rknn_init</span><br><span class="line"> ↓</span><br><span class="line">query input/output</span><br><span class="line"> ↓</span><br><span class="line">set input</span><br><span class="line"> ↓</span><br><span class="line">rknn_run</span><br><span class="line"> ↓</span><br><span class="line">get output</span><br><span class="line"> ↓</span><br><span class="line">release</span><br><span class="line"> ↓</span><br><span class="line">destroy</span><br></pre></td></tr></table></figure></div>
+
+<p>搞懂：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CPU</span><br><span class="line">GPU</span><br><span class="line">NPU</span><br></pre></td></tr></table></figure></div>
+
+<p>各自用途。</p>
+<hr>
+<h2 id="今天必须回答"><a href="#今天必须回答" class="headerlink" title="今天必须回答"></a>今天必须回答</h2><blockquote>
+<p><code>.rknn</code> 文件是什么？</p>
+</blockquote>
+<blockquote>
+<p>为什么模型不能直接拿普通 PyTorch 模型在 RK3588 NPU 上跑？</p>
+</blockquote>
+<blockquote>
+<p>RKNN Runtime 的作用是什么？</p>
+</blockquote>
+<hr>
+<h1 id="Day-12：RKNN-Pool-多线程推理"><a href="#Day-12：RKNN-Pool-多线程推理" class="headerlink" title="Day 12：RKNN Pool + 多线程推理"></a>Day 12：RKNN Pool + 多线程推理</h1><p>继续：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rknnPool.hpp</span><br><span class="line">ThreadPool.hpp</span><br><span class="line">main.cpp</span><br></pre></td></tr></table></figure></div>
+
+<p>今天重点不是 RKNN API，而是<strong>并发结构</strong>。</p>
+<p>搞清：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">视频读取线程</span><br><span class="line">       ↓</span><br><span class="line">     Frame</span><br><span class="line">       ↓</span><br><span class="line">推理任务</span><br><span class="line">       ↓</span><br><span class="line">ThreadPool / RKNN Pool</span><br><span class="line">       ↓</span><br><span class="line">多个模型实例</span><br></pre></td></tr></table></figure></div>
+
+<p>重点理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">并发</span><br><span class="line">并行</span><br><span class="line">异步</span><br></pre></td></tr></table></figure></div>
+
+<p>区别。</p>
+<p>以及：</p>
+<blockquote>
+<p>为什么多个线程不一定能安全共享一个推理 Context？</p>
+</blockquote>
+<hr>
+<h1 id="Day-13：PostProcess-IoU-NMS"><a href="#Day-13：PostProcess-IoU-NMS" class="headerlink" title="Day 13：PostProcess + IoU + NMS"></a>Day 13：PostProcess + IoU + NMS</h1><p>研究：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">postprocess.h</span><br><span class="line">postprocess.cpp</span><br></pre></td></tr></table></figure></div>
+
+<p>学习：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Bounding Box</span><br><span class="line">Confidence</span><br><span class="line">Class</span><br><span class="line">IoU</span><br><span class="line">NMS</span><br></pre></td></tr></table></figure></div>
+
+<p>流程：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RKNN Tensor</span><br><span class="line"> ↓</span><br><span class="line">解析输出</span><br><span class="line"> ↓</span><br><span class="line">置信度过滤</span><br><span class="line"> ↓</span><br><span class="line">坐标还原</span><br><span class="line"> ↓</span><br><span class="line">NMS</span><br><span class="line"> ↓</span><br><span class="line">Detection Result</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="必须自己写"><a href="#必须自己写" class="headerlink" title="必须自己写"></a>必须自己写</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">float</span> <span class="title">iou</span><span class="params">(Box a, Box b)</span></span>;</span><br></pre></td></tr></table></figure></div>
+
+<p>和一个简化：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NMS</span><br></pre></td></tr></table></figure></div>
+
+<p>你不是算法岗，不需要花一天研究 YOLO 网络结构。</p>
+<hr>
+<h1 id="Day-14：多模型-Detection-Fusion"><a href="#Day-14：多模型-Detection-Fusion" class="headerlink" title="Day 14：多模型 + Detection Fusion"></a>Day 14：多模型 + Detection Fusion</h1><p>重点：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">person_relu.rknn</span><br><span class="line">helmet_relu.rknn</span><br><span class="line">callplay_relu.rknn</span><br><span class="line">tired_relu.rknn</span><br></pre></td></tr></table></figure></div>
+
+<p>以及：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">detection_fusion_manager.h</span><br><span class="line">detection_fusion_manager.cpp</span><br><span class="line">main.cpp</span><br></pre></td></tr></table></figure></div>
+
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">                 Person</span><br><span class="line">                   ↓</span><br><span class="line">Frame ─────────→ Helmet</span><br><span class="line">                   ↓</span><br><span class="line">                Tired</span><br><span class="line">                   ↓</span><br><span class="line">               CallPlay</span><br><span class="line">                   ↓</span><br><span class="line">           Detection Fusion</span><br></pre></td></tr></table></figure></div>
+
+<p>研究：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">各模型结果怎么保存？</span><br><span class="line">什么时间产生？</span><br><span class="line">怎么进行融合？</span><br><span class="line">上一次结果是否会复用？</span><br><span class="line">为什么存在跳帧推理？</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="今日产出-2"><a href="#今日产出-2" class="headerlink" title="今日产出"></a>今日产出</h3><p>画出：</p>
+<blockquote>
+<p>多模型线程与数据流关系图。</p>
+</blockquote>
+<hr>
+<h1 id="Day-15：MPP-Encoder-Streaming-Project1-总复盘"><a href="#Day-15：MPP-Encoder-Streaming-Project1-总复盘" class="headerlink" title="Day 15：MPP Encoder + Streaming + Project1 总复盘"></a>Day 15：MPP Encoder + Streaming + Project1 总复盘</h1><p>重点：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mpp_encoder.h/.cpp</span><br><span class="line">streaming_manager.h/.cpp</span><br><span class="line">main.cpp</span><br></pre></td></tr></table></figure></div>
+
+<p>补齐最后流程：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Detection</span><br><span class="line"> ↓</span><br><span class="line">绘制/组合</span><br><span class="line"> ↓</span><br><span class="line">MPP Encoder</span><br><span class="line"> ↓</span><br><span class="line">H264/H265</span><br><span class="line"> ↓</span><br><span class="line">Streaming / Output</span><br></pre></td></tr></table></figure></div>
+
+<p>最终 Project1：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Video</span><br><span class="line"> ↓</span><br><span class="line">Stream Loader / FFmpeg</span><br><span class="line"> ↓</span><br><span class="line">MPP Decoder</span><br><span class="line"> ↓</span><br><span class="line">Frame</span><br><span class="line"> ↓</span><br><span class="line">DMA / RGA</span><br><span class="line"> ↓</span><br><span class="line">RKNN Pool</span><br><span class="line"> ↓</span><br><span class="line">Multi-model Inference</span><br><span class="line"> ↓</span><br><span class="line">PostProcess</span><br><span class="line"> ↓</span><br><span class="line">Detection Fusion</span><br><span class="line"> ↓</span><br><span class="line">MPP Encoder</span><br><span class="line"> ↓</span><br><span class="line">Streaming</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="Day15-大考"><a href="#Day15-大考" class="headerlink" title="Day15 大考"></a>Day15 大考</h2><p>不看源码，讲 <strong>10 分钟 Project1</strong>。</p>
+<p>必须覆盖：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">项目目的</span><br><span class="line">硬件平台</span><br><span class="line">数据流</span><br><span class="line">线程设计</span><br><span class="line">Buffer设计</span><br><span class="line">MPP</span><br><span class="line">RGA</span><br><span class="line">RKNN</span><br><span class="line">多模型</span><br><span class="line">结果融合</span><br><span class="line">编码输出</span><br></pre></td></tr></table></figure></div>
+
+<p>如果这里能讲清楚，Project1 已经具备简历基础。</p>
+<hr>
+<h1 id="Day-16：网络编程基础-Project2-总览"><a href="#Day-16：网络编程基础-Project2-总览" class="headerlink" title="Day 16：网络编程基础 + Project2 总览"></a>Day 16：网络编程基础 + Project2 总览</h1><p>进入 Project2。</p>
+<p>复习：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">socket()</span><br><span class="line">bind()</span><br><span class="line">listen()</span><br><span class="line">accept()</span><br><span class="line">connect()</span><br><span class="line">send()</span><br><span class="line">recv()</span><br><span class="line">sendto()</span><br><span class="line">recvfrom()</span><br></pre></td></tr></table></figure></div>
+
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TCP</span><br><span class="line">UDP</span><br></pre></td></tr></table></figure></div>
+
+<p>自己写：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TCP Client/Server</span><br><span class="line">UDP Sender/Receiver</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="Project2-2"><a href="#Project2-2" class="headerlink" title="Project2"></a>Project2</h2><p>浏览：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">main.cc</span><br><span class="line">config.*</span><br><span class="line">decode.*</span><br><span class="line">frame_queue.h</span><br><span class="line">push.*</span><br><span class="line">ps_rtp.*</span><br><span class="line">gb28181.*</span><br><span class="line">xml_utils.*</span><br></pre></td></tr></table></figure></div>
+
+<p>画第一次完整架构。</p>
+<hr>
+<h1 id="Day-17：select-poll-epoll-Project2-main-config"><a href="#Day-17：select-poll-epoll-Project2-main-config" class="headerlink" title="Day 17：select &#x2F; poll &#x2F; epoll + Project2 main&#x2F;config"></a>Day 17：select &#x2F; poll &#x2F; epoll + Project2 main&#x2F;config</h1><p>复习：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">阻塞 IO</span><br><span class="line">非阻塞 IO</span><br><span class="line">IO 多路复用</span><br></pre></td></tr></table></figure></div>
+
+<p>比较：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">poll</span><br><span class="line">epoll</span><br></pre></td></tr></table></figure></div>
+
+<p>搞懂：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LT</span><br><span class="line">ET</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><p>研究：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main.cc</span><br><span class="line">config.cc</span><br><span class="line">config.h</span><br></pre></td></tr></table></figure></div>
+
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">程序从哪里启动？</span><br><span class="line">读取什么配置？</span><br><span class="line">GB28181如何初始化？</span><br><span class="line">媒体线程何时启动？</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h1 id="Day-18：Decode-FrameQueue"><a href="#Day-18：Decode-FrameQueue" class="headerlink" title="Day 18：Decode + FrameQueue"></a>Day 18：Decode + FrameQueue</h1><p>重点：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">decode.cc</span><br><span class="line">decode.h</span><br><span class="line">frame_queue.h</span><br><span class="line">MPP/</span><br></pre></td></tr></table></figure></div>
+
+<p>这一天会把 Day6 完全串进项目。</p>
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Decoder</span><br><span class="line"> ↓</span><br><span class="line">Producer</span><br><span class="line"> ↓</span><br><span class="line">FrameQueue</span><br><span class="line"> ↓</span><br><span class="line">Consumer</span><br><span class="line"> ↓</span><br><span class="line">Push</span><br></pre></td></tr></table></figure></div>
+
+<p>重点研究：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">push()</span><br><span class="line">pop()</span><br><span class="line">mutex</span><br><span class="line">condition_variable</span><br><span class="line">队列为空怎么办</span><br><span class="line">队列满怎么办</span><br><span class="line">Frame所有权</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="面试问题-1"><a href="#面试问题-1" class="headerlink" title="面试问题"></a>面试问题</h3><blockquote>
+<p>为什么音视频系统大量使用生产者消费者模型？</p>
+</blockquote>
+<blockquote>
+<p>如果生产速度大于消费速度怎么办？</p>
+</blockquote>
+<hr>
+<h1 id="Day-19：PS-RTP-UDP"><a href="#Day-19：PS-RTP-UDP" class="headerlink" title="Day 19：PS + RTP + UDP"></a>Day 19：PS + RTP + UDP</h1><p>研究：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ps_rtp.cc</span><br><span class="line">ps_rtp.h</span><br><span class="line">push.cc</span><br><span class="line">push.h</span><br></pre></td></tr></table></figure></div>
+
+<p>完整理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">H264/H265</span><br><span class="line"> ↓</span><br><span class="line">PS 封装</span><br><span class="line"> ↓</span><br><span class="line">RTP 分包</span><br><span class="line"> ↓</span><br><span class="line">UDP</span><br><span class="line"> ↓</span><br><span class="line">网络</span><br></pre></td></tr></table></figure></div>
+
+<p>认识 RTP：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Version</span><br><span class="line">Payload Type</span><br><span class="line">Sequence Number</span><br><span class="line">Timestamp</span><br><span class="line">SSRC</span><br></pre></td></tr></table></figure></div>
+
+<p>重点真正理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Sequence Number</span><br><span class="line">Timestamp</span><br><span class="line">SSRC</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h1 id="Day-20：SIP-eXosip2-osip2"><a href="#Day-20：SIP-eXosip2-osip2" class="headerlink" title="Day 20：SIP + eXosip2&#x2F;osip2"></a>Day 20：SIP + eXosip2&#x2F;osip2</h1><p>学习 SIP 基础。</p>
+<p>认识：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">REGISTER</span><br><span class="line">MESSAGE</span><br><span class="line">INVITE</span><br><span class="line">ACK</span><br><span class="line">BYE</span><br></pre></td></tr></table></figure></div>
+
+<p>牢记一句：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SIP：控制会话</span><br><span class="line">RTP：传输媒体</span><br></pre></td></tr></table></figure></div>
+
+<p>理解：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">osip2</span><br></pre></td></tr></table></figure></div>
+
+<p>偏 SIP 消息和底层协议处理。</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eXosip2</span><br></pre></td></tr></table></figure></div>
+
+<p>提供更方便的 SIP 会话 API。</p>
+<p>今天<strong>不读两个库的源码</strong>。</p>
+<p>只研究 Project2 怎么调用。</p>
+<hr>
+<h1 id="Day-21：GB28181-XML"><a href="#Day-21：GB28181-XML" class="headerlink" title="Day 21：GB28181 + XML"></a>Day 21：GB28181 + XML</h1><p>研究：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gb28181.cc</span><br><span class="line">gb28181.h</span><br><span class="line">xml_utils.cc</span><br><span class="line">xml_utils.h</span><br></pre></td></tr></table></figure></div>
+
+<p>学习典型设备流程：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">设备</span><br><span class="line"> ↓ REGISTER</span><br><span class="line">平台</span><br><span class="line"></span><br><span class="line">设备</span><br><span class="line"> ↓ Keepalive</span><br><span class="line">平台</span><br><span class="line"></span><br><span class="line">平台</span><br><span class="line"> ↓ INVITE</span><br><span class="line">设备</span><br><span class="line"></span><br><span class="line">设备</span><br><span class="line"> ↓ PS/RTP视频</span><br><span class="line">平台</span><br><span class="line"></span><br><span class="line">平台</span><br><span class="line"> ↓ BYE</span><br><span class="line">设备</span><br></pre></td></tr></table></figure></div>
+
+<p>理解 XML 在：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">设备查询</span><br><span class="line">目录</span><br><span class="line">状态</span><br><span class="line">命令</span><br><span class="line">响应</span><br></pre></td></tr></table></figure></div>
+
+<p>中的作用。</p>
+<hr>
+<h1 id="Day-22：Project2-全链路复盘"><a href="#Day-22：Project2-全链路复盘" class="headerlink" title="Day 22：Project2 全链路复盘"></a>Day 22：Project2 全链路复盘</h1><p>今天不学新知识。</p>
+<p>把 Project2 拆成：</p>
+<h2 id="控制面"><a href="#控制面" class="headerlink" title="控制面"></a>控制面</h2><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Config</span><br><span class="line"> ↓</span><br><span class="line">eXosip/osip</span><br><span class="line"> ↓</span><br><span class="line">SIP</span><br><span class="line"> ↓</span><br><span class="line">GB28181</span><br><span class="line"> ↓</span><br><span class="line">REGISTER / MESSAGE / INVITE / BYE</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="媒体面"><a href="#媒体面" class="headerlink" title="媒体面"></a>媒体面</h2><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Video</span><br><span class="line"> ↓</span><br><span class="line">Decode</span><br><span class="line"> ↓</span><br><span class="line">FrameQueue</span><br><span class="line"> ↓</span><br><span class="line">Push</span><br><span class="line"> ↓</span><br><span class="line">PS</span><br><span class="line"> ↓</span><br><span class="line">RTP</span><br><span class="line"> ↓</span><br><span class="line">UDP</span><br><span class="line"> ↓</span><br><span class="line">Platform</span><br></pre></td></tr></table></figure></div>
+
+<p>然后解释：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">INVITE</span><br><span class="line">   ↓</span><br><span class="line">触发媒体发送</span><br><span class="line">   ↓</span><br><span class="line">Push</span><br><span class="line">   ↓</span><br><span class="line">PS/RTP</span><br></pre></td></tr></table></figure></div>
+
+<p>也就是说：</p>
+<blockquote>
+<p><strong>控制面如何驱动媒体面。</strong></p>
+</blockquote>
+<h3 id="Day22-大考"><a href="#Day22-大考" class="headerlink" title="Day22 大考"></a>Day22 大考</h3><p>不看代码讲 <strong>10 分钟 Project2</strong>。</p>
+<hr>
+<h1 id="Day-23：GDB、strace、Linux-调试-性能分析"><a href="#Day-23：GDB、strace、Linux-调试-性能分析" class="headerlink" title="Day 23：GDB、strace、Linux 调试 + 性能分析"></a>Day 23：GDB、strace、Linux 调试 + 性能分析</h1><p>这是求职非常重要的一天。</p>
+<p>必须掌握：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb</span><br></pre></td></tr></table></figure></div>
+
+<p>命令：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">break</span><br><span class="line">run</span><br><span class="line">next</span><br><span class="line">step</span><br><span class="line">continue</span><br><span class="line">print</span><br><span class="line">bt</span><br><span class="line">info threads</span><br><span class="line">thread</span><br></pre></td></tr></table></figure></div>
+
+<p>特别是：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread apply all bt</span><br></pre></td></tr></table></figure></div>
+
+<p>再学习：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">strace</span><br><span class="line">lsof</span><br><span class="line">ps</span><br><span class="line">top</span><br><span class="line">free</span><br><span class="line">dmesg</span><br><span class="line">ldd</span><br><span class="line">readelf</span><br><span class="line">nm</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="模拟排查"><a href="#模拟排查" class="headerlink" title="模拟排查"></a>模拟排查</h2><p>至少知道下面问题怎么查：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Segmentation Fault</span><br><span class="line">动态库找不到</span><br><span class="line">线程死锁</span><br><span class="line">CPU 100%</span><br><span class="line">内存不断上涨</span><br><span class="line">端口被占用</span><br><span class="line">Socket断开</span><br><span class="line">程序卡死</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>使用：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::chrono</span><br></pre></td></tr></table></figure></div>
+
+<p>统计 Project1：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Decode time</span><br><span class="line">RGA time</span><br><span class="line">Inference time</span><br><span class="line">PostProcess time</span><br><span class="line">Encode time</span><br><span class="line">FPS</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h1 id="Day-24：真正把别人项目变成“你的项目”"><a href="#Day-24：真正把别人项目变成“你的项目”" class="headerlink" title="Day 24：真正把别人项目变成“你的项目”"></a>Day 24：真正把别人项目变成“你的项目”</h1><p>今天必须改代码。</p>
+<p>至少完成 <strong>2 项</strong>。</p>
+<p>最推荐：</p>
+<h3 id="①-性能统计模块"><a href="#①-性能统计模块" class="headerlink" title="① 性能统计模块"></a>① 性能统计模块</h3><p>输出：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Decode FPS       : 55.2</span><br><span class="line">Inference FPS    : 42.7</span><br><span class="line">Average infer    : 19.6 ms</span><br><span class="line">Queue size       : 8</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h3 id="②-有界队列"><a href="#②-有界队列" class="headerlink" title="② 有界队列"></a>② 有界队列</h3><p>解决：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">生产速度 &gt; 消费速度</span><br><span class="line">       ↓</span><br><span class="line">队列越来越长</span><br><span class="line">       ↓</span><br><span class="line">内存上涨</span><br><span class="line">       ↓</span><br><span class="line">实时性越来越差</span><br></pre></td></tr></table></figure></div>
+
+<p>例如：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MAX_QUEUE_SIZE = 50</span><br></pre></td></tr></table></figure></div>
+
+<p>视频实时场景可以：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">队列满</span><br><span class="line"> ↓</span><br><span class="line">丢弃旧帧</span><br></pre></td></tr></table></figure></div>
+
+<p>而不是无限积压。</p>
+<hr>
+<h3 id="③-优雅退出"><a href="#③-优雅退出" class="headerlink" title="③ 优雅退出"></a>③ 优雅退出</h3><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+C</span><br><span class="line"> ↓</span><br><span class="line">SIGINT</span><br><span class="line"> ↓</span><br><span class="line">设置 stopFlag</span><br><span class="line"> ↓</span><br><span class="line">停止生产</span><br><span class="line"> ↓</span><br><span class="line">唤醒线程</span><br><span class="line"> ↓</span><br><span class="line">join</span><br><span class="line"> ↓</span><br><span class="line">释放 RKNN/MPP</span><br><span class="line"> ↓</span><br><span class="line">关闭 Socket</span><br><span class="line"> ↓</span><br><span class="line">退出</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h3 id="④-日志系统"><a href="#④-日志系统" class="headerlink" title="④ 日志系统"></a>④ 日志系统</h3><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[INFO]</span><br><span class="line">[WARN]</span><br><span class="line">[ERROR]</span><br></pre></td></tr></table></figure></div>
+
+<p>带：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">时间</span><br><span class="line">线程ID</span><br><span class="line">模块</span><br><span class="line">内容</span><br></pre></td></tr></table></figure></div>
+
+<p>推荐至少做：</p>
+<blockquote>
+<p><strong>性能统计 + 优雅退出</strong></p>
+</blockquote>
+<p>或者：</p>
+<blockquote>
+<p><strong>有界队列 + 优雅退出</strong></p>
+</blockquote>
+<p>这样最符合 Linux 应用开发。</p>
+<hr>
+<h1 id="Day-25：简历-README-模拟面试"><a href="#Day-25：简历-README-模拟面试" class="headerlink" title="Day 25：简历 + README + 模拟面试"></a>Day 25：简历 + README + 模拟面试</h1><p>最后一天不要继续学新技术。</p>
+<hr>
+<h2 id="第一项：Project1-README"><a href="#第一项：Project1-README" class="headerlink" title="第一项：Project1 README"></a>第一项：Project1 README</h2><p>整理：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">项目介绍</span><br><span class="line">开发环境</span><br><span class="line">软硬件架构</span><br><span class="line">数据流</span><br><span class="line">线程模型</span><br><span class="line">核心模块</span><br><span class="line">编译方式</span><br><span class="line">运行方式</span><br><span class="line">性能</span><br><span class="line">自己修改的地方</span><br><span class="line">遇到的问题</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="第二项：Project2-README"><a href="#第二项：Project2-README" class="headerlink" title="第二项：Project2 README"></a>第二项：Project2 README</h2><p>同样整理。</p>
+<hr>
+<h1 id="四、最终简历上的两个项目定位"><a href="#四、最终简历上的两个项目定位" class="headerlink" title="四、最终简历上的两个项目定位"></a>四、最终简历上的两个项目定位</h1><h2 id="项目一"><a href="#项目一" class="headerlink" title="项目一"></a>项目一</h2><h3 id="基于-RK3588-的多路智能视频分析系统"><a href="#基于-RK3588-的多路智能视频分析系统" class="headerlink" title="基于 RK3588 的多路智能视频分析系统"></a>基于 RK3588 的多路智能视频分析系统</h3><p>核心关键词：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Linux</span><br><span class="line">C++</span><br><span class="line">CMake</span><br><span class="line">多线程</span><br><span class="line">线程池</span><br><span class="line">FFmpeg</span><br><span class="line">MPP</span><br><span class="line">RGA</span><br><span class="line">RKNN</span><br><span class="line">NPU</span><br><span class="line">DMA</span><br><span class="line">视频编解码</span><br><span class="line">多模型推理</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="项目二"><a href="#项目二" class="headerlink" title="项目二"></a>项目二</h2><h3 id="基于-GB28181-的嵌入式视频接入与实时传输系统"><a href="#基于-GB28181-的嵌入式视频接入与实时传输系统" class="headerlink" title="基于 GB28181 的嵌入式视频接入与实时传输系统"></a>基于 GB28181 的嵌入式视频接入与实时传输系统</h3><p>核心关键词：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Linux</span><br><span class="line">C++</span><br><span class="line">Socket</span><br><span class="line">UDP</span><br><span class="line">生产者消费者</span><br><span class="line">MPP</span><br><span class="line">PS</span><br><span class="line">RTP</span><br><span class="line">SIP</span><br><span class="line">GB28181</span><br><span class="line">eXosip2</span><br><span class="line">osip2</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h1 id="五、25-天期间必须自己完成的-10-个-Demo"><a href="#五、25-天期间必须自己完成的-10-个-Demo" class="headerlink" title="五、25 天期间必须自己完成的 10 个 Demo"></a>五、25 天期间必须自己完成的 10 个 Demo</h1><p>建议建立专门目录：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Linux_Review/</span><br><span class="line">├── 01_cmake/</span><br><span class="line">├── 02_file_io/</span><br><span class="line">├── 03_mmap/</span><br><span class="line">├── 04_signal/</span><br><span class="line">├── 05_pthread/</span><br><span class="line">├── 06_producer_consumer/</span><br><span class="line">├── 07_threadpool/</span><br><span class="line">├── 08_tcp/</span><br><span class="line">├── 09_udp/</span><br><span class="line">└── 10_epoll/</span><br></pre></td></tr></table></figure></div>
+
+<p>以后找工作前甚至不需要重新刷整套 Linux 教程。</p>
+<p>把这 10 个 Demo 再写一遍，就能快速恢复状态。</p>
+<hr>
+<h1 id="六、最终-25-天学习计划总表"><a href="#六、最终-25-天学习计划总表" class="headerlink" title="六、最终 25 天学习计划总表"></a>六、最终 25 天学习计划总表</h1><p>这张表建议你直接保存。</p>
+<table>
+<thead>
+<tr>
+<th>天数</th>
+<th>基础复习</th>
+<th>项目源码</th>
+<th>必须产出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Day1</strong></td>
+<td>Linux命令、项目阅读</td>
+<td>两项目目录&#x2F;main</td>
+<td>两张架构图</td>
+</tr>
+<tr>
+<td><strong>Day2</strong></td>
+<td>GCC、链接、CMake</td>
+<td>两项目 CMake</td>
+<td>CMake Demo</td>
+</tr>
+<tr>
+<td><strong>Day3</strong></td>
+<td>C++、STL、RAII</td>
+<td>main&#x2F;Buffer</td>
+<td>C++知识表</td>
+</tr>
+<tr>
+<td><strong>Day4</strong></td>
+<td>IO、fd、mmap</td>
+<td>Buffer体系</td>
+<td>文件复制Demo</td>
+</tr>
+<tr>
+<td><strong>Day5</strong></td>
+<td>进程、IPC、Signal</td>
+<td>生命周期</td>
+<td>Signal Demo</td>
+</tr>
+<tr>
+<td><strong>Day6</strong></td>
+<td>pthread、mutex、cond</td>
+<td>并发基础</td>
+<td>生产消费者</td>
+</tr>
+<tr>
+<td><strong>Day7</strong></td>
+<td>线程池</td>
+<td>P1 main + ThreadPool</td>
+<td>手写线程池</td>
+</tr>
+<tr>
+<td><strong>Day8</strong></td>
+<td>音视频基础</td>
+<td>Stream Loader</td>
+<td>输入流程图</td>
+</tr>
+<tr>
+<td><strong>Day9</strong></td>
+<td>硬件解码</td>
+<td>MPP Decoder</td>
+<td>解码流程图</td>
+</tr>
+<tr>
+<td><strong>Day10</strong></td>
+<td>DMA、内存</td>
+<td>RGA&#x2F;DMA&#x2F;Buffer</td>
+<td>Frame流转图</td>
+</tr>
+<tr>
+<td><strong>Day11</strong></td>
+<td>NPU基础</td>
+<td>RKNN</td>
+<td>推理流程图</td>
+</tr>
+<tr>
+<td><strong>Day12</strong></td>
+<td>并发&#x2F;异步</td>
+<td>RKNN Pool</td>
+<td>推理线程图</td>
+</tr>
+<tr>
+<td><strong>Day13</strong></td>
+<td>IoU&#x2F;NMS</td>
+<td>PostProcess</td>
+<td>手写IoU&#x2F;NMS</td>
+</tr>
+<tr>
+<td><strong>Day14</strong></td>
+<td>多模型</td>
+<td>Detection Fusion</td>
+<td>多模型架构</td>
+</tr>
+<tr>
+<td><strong>Day15</strong></td>
+<td>编码&#x2F;输出</td>
+<td>Encoder&#x2F;Streaming</td>
+<td>P1完整讲解</td>
+</tr>
+<tr>
+<td><strong>Day16</strong></td>
+<td>TCP&#x2F;UDP</td>
+<td>P2整体</td>
+<td>TCP+UDP Demo</td>
+</tr>
+<tr>
+<td><strong>Day17</strong></td>
+<td>select&#x2F;poll&#x2F;epoll</td>
+<td>main&#x2F;config</td>
+<td>epoll Demo</td>
+</tr>
+<tr>
+<td><strong>Day18</strong></td>
+<td>生产消费者复习</td>
+<td>Decode&#x2F;FrameQueue</td>
+<td>Queue流程图</td>
+</tr>
+<tr>
+<td><strong>Day19</strong></td>
+<td>RTP&#x2F;PS&#x2F;UDP</td>
+<td>ps_rtp&#x2F;push</td>
+<td>RTP数据流</td>
+</tr>
+<tr>
+<td><strong>Day20</strong></td>
+<td>SIP</td>
+<td>eXosip&#x2F;osip</td>
+<td>SIP流程图</td>
+</tr>
+<tr>
+<td><strong>Day21</strong></td>
+<td>GB28181&#x2F;XML</td>
+<td>gb28181&#x2F;xml</td>
+<td>注册点播时序</td>
+</tr>
+<tr>
+<td><strong>Day22</strong></td>
+<td>综合</td>
+<td>P2全部</td>
+<td>P2完整讲解</td>
+</tr>
+<tr>
+<td><strong>Day23</strong></td>
+<td>GDB&#x2F;strace&#x2F;性能</td>
+<td>两项目调试</td>
+<td>排错+性能报告</td>
+</tr>
+<tr>
+<td><strong>Day24</strong></td>
+<td>工程优化</td>
+<td>自主修改</td>
+<td>至少2项改造</td>
+</tr>
+<tr>
+<td><strong>Day25</strong></td>
+<td>Linux面试复盘</td>
+<td>两项目</td>
+<td>README+简历+模拟面试</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="七、25-天后你的验收标准"><a href="#七、25-天后你的验收标准" class="headerlink" title="七、25 天后你的验收标准"></a>七、25 天后你的验收标准</h1><p>不是“我看完了”。</p>
+<p>而是下面这些全部能打勾：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">□ 能自己写 CMakeLists.txt</span><br><span class="line">□ 能解释动态库/静态库</span><br><span class="line">□ 能自己写 pthread 程序</span><br><span class="line">□ 能自己写生产者消费者</span><br><span class="line">□ 能自己写简单线程池</span><br><span class="line">□ 能写 TCP/UDP Socket</span><br><span class="line">□ 能解释 select/poll/epoll</span><br><span class="line">□ 会使用 GDB</span><br><span class="line">□ 会使用 strace/ldd/lsof/top</span><br><span class="line">□ 能讲清 Project1 数据流</span><br><span class="line">□ 能讲清 Project1 线程模型</span><br><span class="line">□ 能解释 MPP/RGA/RKNN</span><br><span class="line">□ 能讲清 Project2 控制面</span><br><span class="line">□ 能讲清 Project2 媒体面</span><br><span class="line">□ 能解释 PS/RTP/SIP/GB28181</span><br><span class="line">□ 自己修改过至少两个项目功能</span><br><span class="line">□ 有 Project1 架构图</span><br><span class="line">□ 有 Project2 架构图</span><br><span class="line">□ 有 README</span><br><span class="line">□ 有简历项目描述</span><br><span class="line">□ 能连续接受项目追问10分钟</span><br></pre></td></tr></table></figure></div>
+
+<p>如果最后这 20 项基本都能打勾，这 25 天就算真正成功。</p>
+<hr>
+<h2 id="还有一个很重要的规则"><a href="#还有一个很重要的规则" class="headerlink" title="还有一个很重要的规则"></a>还有一个很重要的规则</h2><p>这 25 天里：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">demo_multhread_decode_infer</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>不安排任何独立学习日。</strong></p>
+<p>它只有一个用途：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mulmodel某段看不懂</span><br><span class="line">        ↓</span><br><span class="line">去基础版找对应简单实现</span><br><span class="line">        ↓</span><br><span class="line">理解</span><br><span class="line">        ↓</span><br><span class="line">马上回mulmodel</span><br></pre></td></tr></table></figure></div>
+
+<p>Project1 的时间全部围绕：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">demo_multhread_decode_infer_mulmodel</span><br></pre></td></tr></table></figure></div>
+
+<p>展开。</p>
+<p>这版可以作为我们后面每天学习的<strong>固定总计划</strong>。从今天开始你只要跟我说 <strong>“今天是 Day X，给我详细学习任务”</strong>，我就按照这张表继续拆到具体文件、具体函数、具体命令、具体 Demo 和当天验收题。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> </li>
+        <li><strong>作者:</strong> 何涛</li>
+        <li><strong>创建于
+                :</strong> 2026-09-06 12:36:01</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-09-06 12:36:08
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://02hetao.github.io/2026/09/06/25天计划/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/09/07/day2/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48"></span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/09/02/day1/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48"></span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.js';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title"></div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%8125-%E5%A4%A9%E6%9C%80%E7%BB%88%E6%80%BB%E4%BD%93%E5%AE%89%E6%8E%92"><span class="nav-text">一、25 天最终总体安排</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%A4%E4%B8%AA%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%AE%9A%E4%BD%8D%E5%85%88%E5%9B%BA%E5%AE%9A%E4%B8%8B%E6%9D%A5"><span class="nav-text">二、两个项目的定位先固定下来</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Project1-%E4%B8%BB%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95"><span class="nav-text">Project1 主学习目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project2"><span class="nav-text">Project2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81Day-1%EF%BC%9A%E4%B8%A4%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%85%A8%E6%99%AF-Linux-%E9%A1%B9%E7%9B%AE%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95"><span class="nav-text">三、Day 1：两个项目全景 + Linux 项目阅读方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0"><span class="nav-text">基础复习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project1"><span class="nav-text">Project1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project2-1"><span class="nav-text">Project2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8A%E6%97%A5%E4%BA%A7%E5%87%BA"><span class="nav-text">今日产出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Project1-%E7%AC%AC%E4%B8%80%E7%89%88%E6%9E%B6%E6%9E%84"><span class="nav-text">Project1 第一版架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Project2-%E7%AC%AC%E4%B8%80%E7%89%88%E6%9E%B6%E6%9E%84"><span class="nav-text">Project2 第一版架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E6%94%B6"><span class="nav-text">验收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-2%EF%BC%9AGCC%E3%80%81%E7%BC%96%E8%AF%91%E3%80%81%E9%93%BE%E6%8E%A5%E3%80%81CMake"><span class="nav-text">Day 2：GCC、编译、链接、CMake</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0"><span class="nav-text">复习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%85%E9%A1%BB%E6%90%9E%E6%87%82"><span class="nav-text">必须搞懂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMake"><span class="nav-text">CMake</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8A%E6%97%A5%E5%8A%A8%E6%89%8B"><span class="nav-text">今日动手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E6%94%B6-1"><span class="nav-text">验收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-3%EF%BC%9AC-%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E5%9B%9E%E7%82%89"><span class="nav-text">Day 3：C++ 核心基础回炉</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-text">智能指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project1-%E5%AF%B9%E5%BA%94"><span class="nav-text">Project1 对应</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8A%E6%97%A5%E4%BA%A7%E5%87%BA-1"><span class="nav-text">今日产出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-4%EF%BC%9ALinux-%E6%96%87%E4%BB%B6-IO-Buffer-mmap"><span class="nav-text">Day 4：Linux 文件 IO + Buffer + mmap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E5%86%99"><span class="nav-text">自己写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E9%A1%B9%E7%9B%AE%E5%BB%BA%E7%AB%8B%E8%AE%A4%E8%AF%86"><span class="nav-text">对项目建立认识</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-5%EF%BC%9A%E8%BF%9B%E7%A8%8B%E3%80%81%E4%BF%A1%E5%8F%B7%E3%80%81%E7%A8%8B%E5%BA%8F%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">Day 5：进程、信号、程序生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E5%86%99-1"><span class="nav-text">自己写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-6%EF%BC%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E9%94%81%E3%80%81%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E3%80%81%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-text">Day 6：线程、锁、条件变量、生产者消费者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%A4%E4%B8%AA-Demo"><span class="nav-text">自己写两个 Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo-1"><span class="nav-text">Demo 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo-2"><span class="nav-text">Demo 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E6%94%B6-2"><span class="nav-text">验收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-7%EF%BC%9AProject1-main-cpp-ThreadPool"><span class="nav-text">Day 7：Project1 main.cpp + ThreadPool</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#main-cpp"><span class="nav-text">main.cpp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPool"><span class="nav-text">ThreadPool</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E5%86%99-2"><span class="nav-text">自己写</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-8%EF%BC%9A%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80-Stream-Loader"><span class="nav-text">Day 8：音视频基础 + Stream Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Project1-1"><span class="nav-text">Project1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E5%A4%A9%E5%BF%85%E9%A1%BB%E7%94%BB"><span class="nav-text">当天必须画</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-9%EF%BC%9AMPP-Decoder"><span class="nav-text">Day 9：MPP Decoder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E5%BA%94-Linux-%E5%9F%BA%E7%A1%80"><span class="nav-text">对应 Linux 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98"><span class="nav-text">面试问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-10%EF%BC%9ARGA-DMA-%E5%9B%BE%E5%83%8F-Buffer"><span class="nav-text">Day 10：RGA + DMA + 图像 Buffer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8A%E5%A4%A9%E9%87%8D%E7%82%B9%E6%90%9E%E6%87%82"><span class="nav-text">今天重点搞懂</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-11%EF%BC%9ARKNN-%E4%B8%8E-NPU"><span class="nav-text">Day 11：RKNN 与 NPU</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8A%E5%A4%A9%E5%BF%85%E9%A1%BB%E5%9B%9E%E7%AD%94"><span class="nav-text">今天必须回答</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-12%EF%BC%9ARKNN-Pool-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8E%A8%E7%90%86"><span class="nav-text">Day 12：RKNN Pool + 多线程推理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-13%EF%BC%9APostProcess-IoU-NMS"><span class="nav-text">Day 13：PostProcess + IoU + NMS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%85%E9%A1%BB%E8%87%AA%E5%B7%B1%E5%86%99"><span class="nav-text">必须自己写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-14%EF%BC%9A%E5%A4%9A%E6%A8%A1%E5%9E%8B-Detection-Fusion"><span class="nav-text">Day 14：多模型 + Detection Fusion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8A%E6%97%A5%E4%BA%A7%E5%87%BA-2"><span class="nav-text">今日产出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-15%EF%BC%9AMPP-Encoder-Streaming-Project1-%E6%80%BB%E5%A4%8D%E7%9B%98"><span class="nav-text">Day 15：MPP Encoder + Streaming + Project1 总复盘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Day15-%E5%A4%A7%E8%80%83"><span class="nav-text">Day15 大考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-16%EF%BC%9A%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80-Project2-%E6%80%BB%E8%A7%88"><span class="nav-text">Day 16：网络编程基础 + Project2 总览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Project2-2"><span class="nav-text">Project2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-17%EF%BC%9Aselect-poll-epoll-Project2-main-config"><span class="nav-text">Day 17：select &#x2F; poll &#x2F; epoll + Project2 main&#x2F;config</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE"><span class="nav-text">项目</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-18%EF%BC%9ADecode-FrameQueue"><span class="nav-text">Day 18：Decode + FrameQueue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98-1"><span class="nav-text">面试问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-19%EF%BC%9APS-RTP-UDP"><span class="nav-text">Day 19：PS + RTP + UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-20%EF%BC%9ASIP-eXosip2-osip2"><span class="nav-text">Day 20：SIP + eXosip2&#x2F;osip2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-21%EF%BC%9AGB28181-XML"><span class="nav-text">Day 21：GB28181 + XML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-22%EF%BC%9AProject2-%E5%85%A8%E9%93%BE%E8%B7%AF%E5%A4%8D%E7%9B%98"><span class="nav-text">Day 22：Project2 全链路复盘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2"><span class="nav-text">控制面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AA%92%E4%BD%93%E9%9D%A2"><span class="nav-text">媒体面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Day22-%E5%A4%A7%E8%80%83"><span class="nav-text">Day22 大考</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-23%EF%BC%9AGDB%E3%80%81strace%E3%80%81Linux-%E8%B0%83%E8%AF%95-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-text">Day 23：GDB、strace、Linux 调试 + 性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E6%8E%92%E6%9F%A5"><span class="nav-text">模拟排查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD"><span class="nav-text">性能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-24%EF%BC%9A%E7%9C%9F%E6%AD%A3%E6%8A%8A%E5%88%AB%E4%BA%BA%E9%A1%B9%E7%9B%AE%E5%8F%98%E6%88%90%E2%80%9C%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E2%80%9D"><span class="nav-text">Day 24：真正把别人项目变成“你的项目”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A0-%E6%80%A7%E8%83%BD%E7%BB%9F%E8%AE%A1%E6%A8%A1%E5%9D%97"><span class="nav-text">① 性能统计模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A1-%E6%9C%89%E7%95%8C%E9%98%9F%E5%88%97"><span class="nav-text">② 有界队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A2-%E4%BC%98%E9%9B%85%E9%80%80%E5%87%BA"><span class="nav-text">③ 优雅退出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A3-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F"><span class="nav-text">④ 日志系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-25%EF%BC%9A%E7%AE%80%E5%8E%86-README-%E6%A8%A1%E6%8B%9F%E9%9D%A2%E8%AF%95"><span class="nav-text">Day 25：简历 + README + 模拟面试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A1%B9%EF%BC%9AProject1-README"><span class="nav-text">第一项：Project1 README</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A1%B9%EF%BC%9AProject2-README"><span class="nav-text">第二项：Project2 README</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%9C%80%E7%BB%88%E7%AE%80%E5%8E%86%E4%B8%8A%E7%9A%84%E4%B8%A4%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D"><span class="nav-text">四、最终简历上的两个项目定位</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%80"><span class="nav-text">项目一</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-RK3588-%E7%9A%84%E5%A4%9A%E8%B7%AF%E6%99%BA%E8%83%BD%E8%A7%86%E9%A2%91%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F"><span class="nav-text">基于 RK3588 的多路智能视频分析系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BA%8C"><span class="nav-text">项目二</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-GB28181-%E7%9A%84%E5%B5%8C%E5%85%A5%E5%BC%8F%E8%A7%86%E9%A2%91%E6%8E%A5%E5%85%A5%E4%B8%8E%E5%AE%9E%E6%97%B6%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F"><span class="nav-text">基于 GB28181 的嵌入式视频接入与实时传输系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%8125-%E5%A4%A9%E6%9C%9F%E9%97%B4%E5%BF%85%E9%A1%BB%E8%87%AA%E5%B7%B1%E5%AE%8C%E6%88%90%E7%9A%84-10-%E4%B8%AA-Demo"><span class="nav-text">五、25 天期间必须自己完成的 10 个 Demo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%9C%80%E7%BB%88-25-%E5%A4%A9%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92%E6%80%BB%E8%A1%A8"><span class="nav-text">六、最终 25 天学习计划总表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%8125-%E5%A4%A9%E5%90%8E%E4%BD%A0%E7%9A%84%E9%AA%8C%E6%94%B6%E6%A0%87%E5%87%86"><span class="nav-text">七、25 天后你的验收标准</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%98%E6%9C%89%E4%B8%80%E4%B8%AA%E5%BE%88%E9%87%8D%E8%A6%81%E7%9A%84%E8%A7%84%E5%88%99"><span class="nav-text">还有一个很重要的规则</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">何涛</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 21 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
